@@ -1,0 +1,16 @@
+{
+    "name": "realtime-sign",
+    "version": "0.0.1",
+    "main": "index.js",
+    "author": "Yunyu Lin <yl@vanderbilt.edu>",
+    "license": "MIT",
+    "dependencies": {
+        "micro": "^9.1.0"
+    },
+    "scripts": {
+        "start": "node index.js"
+    },
+    "devDependencies": {
+        "ws": "^4.0.0"
+    }
+}
