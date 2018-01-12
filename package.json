@@ -5,12 +5,14 @@
     "author": "Yunyu Lin <yl@vanderbilt.edu>",
     "license": "MIT",
     "dependencies": {
-        "micro": "^9.1.0"
+        "micro": "^9.1.0",
+        "ws": "^4.0.0"
     },
     "scripts": {
         "start": "node index.js"
     },
-    "devDependencies": {
-        "ws": "^4.0.0"
+    "optionalDependencies": {
+        "bufferutil": "^3.0.3",
+        "utf-8-validate": "^4.0.0"
     }
 }

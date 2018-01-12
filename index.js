@@ -5,7 +5,7 @@ const { json, createError } = micro;
 let wss;
 let lastStatus = {};
 
-const sendJSON = data => sock => sock.send(JSON.stringify(data));
+const sendStatus = sock => sock.send(JSON.stringify(lastStatus));
 
 const server = micro(async (req, res) => {
     switch (req.method) {
@@ -14,9 +14,11 @@ const server = micro(async (req, res) => {
                 throw createError(401, 'Invalid API key');
             }
             lastStatus = await json(req);
-            wss.clients
-                .filter(sock => sock.readyState === WebSocket.OPEN)
-                .forEach(sendJSON(lastStatus));
+            wss.clients.forEach(sock => {
+                if (sock.readyState === WebSocket.OPEN) {
+                    sendStatus(sock);
+                }
+            });
             console.log(lastStatus);
             return { result: 'OK' };
         default:
@@ -25,6 +27,9 @@ const server = micro(async (req, res) => {
 });
 
 wss = new WebSocket.Server({ server });
-wss.on('connection', sendJSON(lastStatus));
+wss.on('connection', sock => {
+    sock.on('error', console.error);
+    sendStatus(sock);
+});
 
 server.listen(process.env.RSIGN_PORT || 3000);
