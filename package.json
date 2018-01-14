@@ -5,6 +5,7 @@
     "author": "Yunyu Lin <yl@vanderbilt.edu>",
     "license": "MIT",
     "dependencies": {
+        "fast-deep-equal": "^1.0.0",
         "micro": "^9.1.0",
         "ws": "^4.0.0"
     },
